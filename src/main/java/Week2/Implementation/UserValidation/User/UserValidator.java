@@ -6,8 +6,8 @@ import Week2.Implementation.UserValidation.Validation.ValidationException;
 import java.util.List;
 
 public class UserValidator {
-    private List<ValidationRule> validationRuleList;
-    private UserStorage userStorage;
+    private final List<ValidationRule> validationRuleList;
+    private final UserStorage userStorage;
 
     public UserValidator(List<ValidationRule> validationRuleList, UserStorage userStorage) {
         this.validationRuleList = validationRuleList;

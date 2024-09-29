@@ -1,4 +1,4 @@
-package Week3.Implementation;
+package Week3.Implementation.Apps;
 
 public class App {
     private String name;
@@ -45,11 +45,12 @@ public class App {
         this.containsNudity = containsNudity;
     }
 
-    public boolean validateAge(int userAge) throws DownloadNotAllowedException {
+    public boolean validateAge(int userAge) {
         if (this.containsNudity && userAge < 18) {
-            throw new DownloadNotAllowedException("App contains nudity.");
-        } else if (this.containsViolence && userAge < 16) {
-            throw new DownloadNotAllowedException("App contains violence.");
+            return false;
+        }
+        if (this.containsViolence && userAge < 16) {
+            return false;
         }
         return true;
     }

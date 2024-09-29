@@ -4,11 +4,11 @@ import Week2.Implementation.UserValidation.User.User;
 import Week2.Implementation.UserValidation.ValidationRule;
 
 public class PasswordValidation implements ValidationRule {
-    private boolean allowSpaces;
-    private boolean requireSpecialCharacters;
-    private boolean requireNumbers;
-    private boolean requireLowercase;
-    private boolean requireUppercase;
+    private final boolean allowSpaces;
+    private final boolean requireSpecialCharacters;
+    private final boolean requireNumbers;
+    private final boolean requireLowercase;
+    private final boolean requireUppercase;
 
     public PasswordValidation(boolean allowSpaces, boolean requireSpecialCharacters, boolean requireNumbers, boolean requireLowercase, boolean requireUppercase) {
         this.allowSpaces = allowSpaces;

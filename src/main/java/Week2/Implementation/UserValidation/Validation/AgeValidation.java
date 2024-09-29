@@ -6,7 +6,7 @@ import Week2.Implementation.UserValidation.ValidationRule;
 import java.util.Calendar;
 
 public class AgeValidation implements ValidationRule {
-    private int minAge;
+    private final int minAge;
 
     public AgeValidation(int minAge) {
         this.minAge = minAge;
