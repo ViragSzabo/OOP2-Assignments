@@ -10,7 +10,6 @@ public class BloodPressureMonitorTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        // Initialize BloodPressureMonitor with some default values
         monitor = new BloodPressureMonitor("SN123", 1.5);
     }
 
