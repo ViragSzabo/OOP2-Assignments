@@ -10,7 +10,6 @@ public class FlightTest {
 
     @Before
     public void setUp() {
-        // Initialize a Flight object before each test
         flight = new Flight("FL123", "New York", "Los Angeles", "2024-09-30 10:00", "2024-09-30 13:00", 300.0, 100);
     }
 

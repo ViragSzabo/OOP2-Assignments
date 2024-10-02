@@ -47,17 +47,10 @@ public class HotelBookingSystem {
         rooms.add(room);
     }
 
-    public void createBooking(Guest guest, Room room,
-                              LocalDate arrivalDate, LocalDate departureDate,
-                              boolean breakfastIncluded, int childrenCount,
-                              int guestsUnder18Count, int adultsCount) {
-        Booking booking = new Booking(
-                guest, room, arrivalDate, departureDate,
-                breakfastIncluded, childrenCount,
-                guestsUnder18Count, adultsCount);
+    public void createBooking(Booking booking) {
         bookings.add(booking);
         booking.confirmBooking();
-        receptionist.checkIn(guest, booking);
+        receptionist.checkIn(booking.getGuest(), booking);
         receptionist.processPayment(booking);
     }
 

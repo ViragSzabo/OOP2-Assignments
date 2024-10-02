@@ -13,7 +13,6 @@ public class FlightBookingSystemTest {
     @BeforeEach
     public void setUp() {
         bookingSystem = new FlightBookingSystem();
-        // Add sample flights to the system
         bookingSystem.addFlight(new Flight("VMD234", "AMS", "LND", "10:00", "11:00", 75.0, 5));
         bookingSystem.addFlight(new Flight("VMD235", "AMS", "NYC", "12:00", "14:00", 150.0, 0));
         bookingSystem.addFlight(new Flight("VMD236", "LND", "NYC", "15:00", "17:00", 200.0, 2));
@@ -25,7 +24,6 @@ public class FlightBookingSystemTest {
         assertEquals(1, availableFlights.size());
         assertEquals("VMD234", availableFlights.get(0).getFlightNumber());
 
-        // Test with no available flights
         availableFlights = bookingSystem.searchAvailableFlights("AMS", "NYC");
         assertEquals(0, availableFlights.size());
     }

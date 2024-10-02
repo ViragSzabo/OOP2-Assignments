@@ -1,6 +1,5 @@
 package Week4.Implementation.EndAssignment.Rooms;
 
-import Week4.Implementation.EndAssignment.Rooms.Suite;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -49,6 +49,9 @@ public class App {
         if (this.containsNudity && userAge < 18) {
             return false;
         }
-        return !this.containsViolence || userAge >= 16;
+        else if (this.containsViolence && userAge < 16) {
+            return false;
+        }
+        return true;
     }
 }

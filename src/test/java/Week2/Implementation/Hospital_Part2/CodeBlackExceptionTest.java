@@ -1,8 +1,13 @@
 package Week2.Implementation.Hospital_Part2;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class CodeBlackExceptionTest extends TestCase {
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class CodeBlackExceptionTest {
+
+    @Test
     public void testCodeBlackExceptionMessage() {
         try {
             throw new CodeBlackException("Test exception message");
@@ -11,10 +16,10 @@ public class CodeBlackExceptionTest extends TestCase {
         }
     }
 
+    @Test
     public void testCodeBlackExceptionIsThrown() {
         boolean exceptionThrown = false;
         try {
-            // Simulate the condition where the exception should be thrown
             throw new CodeBlackException("Test exception message");
         } catch (CodeBlackException e) {
             exceptionThrown = true;
