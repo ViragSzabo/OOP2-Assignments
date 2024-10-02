@@ -1,4 +1,4 @@
-package Week1.Hospital.Implementation.System;
+package Week2.Implementation.Hospital_Part2;
 
 import junit.framework.TestCase;
 

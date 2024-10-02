@@ -6,6 +6,7 @@ import Week1.Hospital.Implementation.Device.BloodPressureMonitor;
 import Week1.Hospital.Implementation.Device.HeartMonitor;
 import Week1.Hospital.Implementation.Building.Patient;
 import Week1.Hospital.Implementation.Device.MedicalDevice;
+import Week2.Implementation.Hospital_Part2.CodeBlackException;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -16,8 +17,11 @@ public class ICUTest extends TestCase {
 
     private ICU icu;
     private Patient patient;
+    private Patient newPatient;
     private Bed bed;
-    private BloodPressureMonitor bpMonitor;
+    private Bed emptyBed;
+    private BloodPressure bloodPressure;
+    private BloodPressureMonitor monitor;
     private HeartMonitor heartMonitor;
 
     @Override
@@ -25,9 +29,12 @@ public class ICUTest extends TestCase {
         super.setUp();
         icu = new ICU("North Wing", 2.0);
         bed = new Bed(1);
-        bpMonitor = new BloodPressureMonitor("BP123", 0.5);
-        heartMonitor = new HeartMonitor("HM123", 0.7);
+        emptyBed = new Bed(2);
+        bloodPressure = new BloodPressure(120, 80);
+        heartMonitor = new HeartMonitor(75, 'F',"SN123", 1.5);
+        monitor = new BloodPressureMonitor(bloodPressure,"SN123", 1.5);
         patient = new Patient("John Doe", new Date(), 'M', 70, new BloodPressure(120, 80), true);
+        newPatient = new Patient("Jane Doe", new Date(), 'F', 70, new BloodPressure(120, 80), false);
     }
 
     public void testGetLocation() {
@@ -65,9 +72,9 @@ public class ICUTest extends TestCase {
     }
 
     public void testGetDevices() {
-        icu.getDevices().add(bpMonitor);
+        icu.getDevices().add(monitor);
         icu.getDevices().add(heartMonitor);
-        assertTrue(icu.getDevices().contains(bpMonitor));
+        assertTrue(icu.getDevices().contains(monitor));
         assertTrue(icu.getDevices().contains(heartMonitor));
     }
 
@@ -95,20 +102,14 @@ public class ICUTest extends TestCase {
         assertFalse(icu.getAvailableBeds().contains(bed));
     }
 
-    public void testGetTotalPatients() throws CodeBlackException {
-        icu.addBed(bed);
-        icu.admitPatient(patient);
-        assertEquals(1, icu.getTotalPatients());
+    public void testGetTotalPatients() {
+        assertEquals(0, icu.getTotalPatients());
     }
 
     public void testAdmitPatient() {
-        icu.addBed(bed);
-        icu.setFte(1.5);
-        icu.getDevices().add(bpMonitor);
-
         try {
-            boolean result = icu.admitPatient(patient);
-            assertTrue(result);
+            icu.addBed(bed);
+            assertTrue(icu.admitPatient(patient));
             assertTrue(bed.isOccupied());
             assertTrue(icu.getPatients().contains(patient));
         } catch (CodeBlackException e) {
@@ -118,23 +119,35 @@ public class ICUTest extends TestCase {
 
     public void testAdmitPatientNoAvailableBeds() {
         try {
+            icu.addBed(bed);
             icu.admitPatient(patient);
+            icu.admitPatient(newPatient);
             fail("Exception should have been thrown due to no available beds");
         } catch (CodeBlackException e) {
             assertEquals("No available beds.", e.getMessage());
         }
     }
 
-    public void testAdmitPatientNotEnoughFTE() {
-        icu.addBed(bed);
-        icu.setFte(0.5); // Not enough FTE
-        icu.getDevices().add(bpMonitor);
-
+    public void testAdmitPatientNotEnoughFTE() throws CodeBlackException {
+        icu.addDevice(heartMonitor);
         try {
-            icu.admitPatient(patient);
+            icu.admitPatient(newPatient);
+            assertFalse(icu.isEnoughFTEForPatient());
             fail("Exception should have been thrown due to not enough FTE");
         } catch (CodeBlackException e) {
-            assertEquals("Not enough FTE available.", e.getMessage());
+            assertTrue(e.getMessage().contains("Not enough FTE"));
         }
+    }
+
+    public void testCaluclateFTE() {
+        icu.addDevice(heartMonitor);
+        icu.addDevice(monitor);
+        icu.addBed(emptyBed);
+        try {
+            icu.admitPatient(newPatient);
+        } catch (CodeBlackException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals(2.4, icu.calculateFTE());
     }
 }

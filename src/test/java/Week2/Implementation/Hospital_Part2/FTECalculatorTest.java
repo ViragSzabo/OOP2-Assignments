@@ -1,4 +1,4 @@
-package Week1.Hospital.Implementation.System;
+package Week2.Implementation.Hospital_Part2;
 
 import Week1.Hospital.Implementation.Device.BloodPressureMonitor;
 import Week1.Hospital.Implementation.Device.HeartMonitor;
@@ -15,11 +15,25 @@ import junit.framework.TestCase;
 public class FTECalculatorTest extends TestCase {
     private List<MedicalDevice> devices;
     private List<Patient> patients;
+    private HeartMonitor heartMonitor;
+    private BloodPressureMonitor monitor;
+    private BloodPressure bloodPressure;
+    private Patient patient1;
+    private Patient patient2;
+    private Patient patient3;
+    private Patient patient4;
 
     @Before
     public void setUp() {
         devices = new ArrayList<>();
         patients = new ArrayList<>();
+        bloodPressure = new BloodPressure(120, 80);
+        heartMonitor = new HeartMonitor(75, 'F',"SN123", 1.5);
+        monitor = new BloodPressureMonitor(bloodPressure,"SN123", 1.5);
+        patient1 = new Patient("John Doe", new Date(), 'M', 70, new BloodPressure(120, 80), true);
+        patient2 = new Patient("Jane Doe", new Date(), 'F', 90, new BloodPressure(140, 85), false);
+        patient3 = new Patient("Alice", new Date(), 'F', 75, new BloodPressure(130, 85), false);
+        patient4 = new Patient("Bob", new Date(), 'M', 65, new BloodPressure(150, 95), true);
     }
 
     @Test
@@ -30,8 +44,8 @@ public class FTECalculatorTest extends TestCase {
 
     @Test
     public void testCalculateFTE_WithDevices() {
-        devices.add(new HeartMonitor("HM001", 5.0));
-        devices.add(new BloodPressureMonitor("BPM001", 2.0));
+        devices.add(heartMonitor);
+        devices.add(monitor);
 
         double fte = FTECalculator.calculateFTE(devices, patients);
         assertEquals(0.3 + 0.1, fte, 0.01);
@@ -39,8 +53,8 @@ public class FTECalculatorTest extends TestCase {
 
     @Test
     public void testCalculateFTE_WithPatients() {
-        patients.add(new Patient("John Doe", new Date(), 'M', 70, new BloodPressure(120, 80), true));
-        patients.add(new Patient("Jane Doe", new Date(), 'F', 90, new BloodPressure(140, 85), false));
+        patients.add(patient1);
+        patients.add(patient2);
 
         double fte = FTECalculator.calculateFTE(devices, patients);
         assertEquals(1.0 + 2.0, fte, 0.01);
@@ -48,9 +62,8 @@ public class FTECalculatorTest extends TestCase {
 
     @Test
     public void testCalculateFTE_WithOverhead() {
-        // Add 6 devices and 6 patients to exceed the overhead threshold
         for (int i = 0; i < 6; i++) {
-            devices.add(new HeartMonitor("HM00" + i, 5.0));
+            devices.add(heartMonitor);
             patients.add(new Patient("Patient " + i, new Date(), 'M', 70, new BloodPressure(120, 80), true));
         }
 
@@ -64,13 +77,13 @@ public class FTECalculatorTest extends TestCase {
 
     @Test
     public void testCalculateFTE_MixedDevicesAndPatients() {
-        devices.add(new HeartMonitor("HM002", 5.0));
-        devices.add(new BloodPressureMonitor("BPM002", 2.0));
-        patients.add(new Patient("Alice", new Date(), 'F', 75, new BloodPressure(130, 85), false));
-        patients.add(new Patient("Bob", new Date(), 'M', 65, new BloodPressure(150, 95), true));
+        devices.add(heartMonitor);
+        devices.add(monitor);
+        patients.add(patient3);
+        patients.add(patient4);
 
         double fte = FTECalculator.calculateFTE(devices, patients);
-        double expectedFTE = 0.3 + 0.1 + 1.0 + 2.0; // FTE for devices and patients
+        double expectedFTE = 0.3 + 0.1 + 1.0 + 2.0;
         assertEquals(expectedFTE, fte, 0.01);
     }
 }

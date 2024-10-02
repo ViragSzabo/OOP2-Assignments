@@ -21,7 +21,7 @@ public class Example {
             rules.add(new EmailValidation());
 
             UserStorage storage = new UserStorage();
-            UserValidator validator = new UserValidator(rules, storage);
+            UserValidator validator = new UserValidator(storage);
             User user = new User("nick-ul", "Circle123*", "nick.texas@gmail.com", new Date(97, 9, 14));
 
             validator.validate(user);

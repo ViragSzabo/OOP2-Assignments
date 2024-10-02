@@ -5,6 +5,7 @@ import Week1.Hospital.Implementation.Device.BloodPressureMonitor;
 import Week1.Hospital.Implementation.Device.HeartMonitor;
 import Week1.Hospital.Implementation.Device.MedicalDevice;
 import Week1.Hospital.Implementation.Building.Patient;
+import Week2.Implementation.Hospital_Part2.CodeBlackException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +61,23 @@ public class ICU {
         this.devices = devices;
     }
 
+    public void addDevice(MedicalDevice device) {
+        devices.add(device);
+    }
+
     public List<Patient> getPatients() {
         return patients;
     }
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+    public void addPatient(Patient patient) {
+        for(Bed bed : beds) {
+            if(bed.getPatient().equals(patient)) {
+                patients.add(patient);
+            }
+        }
     }
 
     public List<Bed> getAvailableBeds() {
@@ -83,43 +95,59 @@ public class ICU {
     }
 
     public boolean admitPatient(Patient patient) throws CodeBlackException {
-        if (getAvailableBeds().isEmpty()) {
-            throw new CodeBlackException("No available beds.");
+        boolean admitted = false;
+        for(Bed bed : beds) {
+            if (!bed.isOccupied()) {
+                bed.assignPatient(patient);
+                patients.add(patient);
+                admitted = true;
+                System.out.println(patient.getName() + " is assigned to bed number " + bed.getBedNumber());
+            } else {
+                System.out.println(patient.getName() + " cannot be assigned.");
+                throw new CodeBlackException("No available beds.");
+            }
         }
-        double currentFTE = calculateFTE();
-        System.out.println("Calculated FTE: " + currentFTE);
-        if (currentFTE < requiredFTEForPatient()) {  // Change made here
-            throw new CodeBlackException("Not enough FTE available.");
-        }
-        Bed bed = getAvailableBeds().get(0);
-        bed.assignPatient(patient);
-        patients.add(patient);
-        return true;
+        return admitted;
     }
 
-    private double calculateFTE() {
+    protected double calculateFTE() {
         double totalFTE = 0.0;
+
         for (MedicalDevice device : devices) {
             if (device instanceof HeartMonitor) {
                 totalFTE += 0.3;
+                System.out.println("Go through heart monitors: " + totalFTE);
             } else if (device instanceof BloodPressureMonitor) {
                 totalFTE += 0.1;
+                System.out.println("Go through blood pressure monitors: " + totalFTE);
             }
         }
 
+        System.out.println("Go see the patient");
+
         for (Patient patient : patients) {
-            totalFTE += patient.isBedridden() ? 2.0 : 1.0;
+            totalFTE += (patient.isBedridden() ? 2.0 : 1.0);
+            System.out.println("The patient can walk: " + patient.canWalk() + ", so total: " + totalFTE);
         }
 
         int totalDependencies = devices.size() + patients.size();
         if (totalDependencies > 5) {
             totalFTE += (totalDependencies - 5) * 0.2;
+            System.out.println("Then the total dependencies: " + totalFTE);
         }
 
+        System.out.println("Total: " + totalFTE);
         return totalFTE;
     }
 
-    private double requiredFTEForPatient() {
-        return 1.0;
+    protected boolean isEnoughFTEForPatient() throws CodeBlackException {
+        boolean isEnough = false;
+        if(calculateFTE() >= 1.0) {
+            System.out.println("Reached the required FTE for the patient!");
+            isEnough = true;
+        } else {
+            throw new CodeBlackException("Not enough FTE");
+        }
+        return isEnough;
     }
 }
