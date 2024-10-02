@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 
 public class HousekeepingTest extends TestCase {
-    private Housekeeping housekeeping = new Housekeeping();
+    private final Housekeeping housekeeping = new Housekeeping();
 
     public void testGetActivityList() {
         housekeeping.addActivity("Eat");

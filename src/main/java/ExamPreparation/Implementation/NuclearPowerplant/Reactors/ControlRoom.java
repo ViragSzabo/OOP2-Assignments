@@ -3,9 +3,9 @@ package ExamPreparation.Implementation.NuclearPowerplant.Reactors;
 import ExamPreparation.Implementation.NuclearPowerplant.SlittingRods.SplittingRod;
 
 public class ControlRoom {
-    private Reactor reactor;
-    private Generator generator;
-    private CoolingSystem coolingSystem;
+    private final Reactor reactor;
+    private final Generator generator;
+    private final CoolingSystem coolingSystem;
 
     public ControlRoom(Reactor reactor, Generator generator, CoolingSystem coolingSystem) {
         this.reactor = reactor;

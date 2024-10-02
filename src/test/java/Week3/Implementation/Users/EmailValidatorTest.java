@@ -16,7 +16,7 @@ public class EmailValidatorTest extends TestCase {
     }
 
     public void testValidateEmail() {
-        assertEquals("boo.seventeen@gmail.com", emailValidator.validateEmail(user.getEmail()));
-        assertEquals(null, emailValidator.validateEmail(noEmailUser.getEmail()));
+        assertEquals("boo.seventeen@gmail.com", EmailValidator.validateEmail(user.getEmail()));
+        assertNull(EmailValidator.validateEmail(noEmailUser.getEmail()));
     }
 }

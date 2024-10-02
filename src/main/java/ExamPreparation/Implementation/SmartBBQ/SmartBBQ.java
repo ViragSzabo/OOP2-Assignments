@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class SmartBBQ {
     private int temperature;
     private boolean isOn = false;
-    private Food[] foodItems = new Food[6];
+    private final Food[] foodItems = new Food[6];
     private Timer timer;
 
     public void turnOn(int temp) {

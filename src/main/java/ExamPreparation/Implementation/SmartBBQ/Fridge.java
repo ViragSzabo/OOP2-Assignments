@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Fridge {
     private static Fridge instance;
-    private List<Food> meats = new ArrayList<>();
-    private List<Food> vegetables = new ArrayList<>();
-    private List<Food> bellpeppers = new ArrayList<>();
-    private List<Food> corns = new ArrayList<>();
-    private List<Food> hamburgers = new ArrayList<>();
-    private List<Food> sausages = new ArrayList<>();
+    private final List<Food> meats = new ArrayList<>();
+    private final List<Food> vegetables = new ArrayList<>();
+    private final List<Food> bellpeppers = new ArrayList<>();
+    private final List<Food> corns = new ArrayList<>();
+    private final List<Food> hamburgers = new ArrayList<>();
+    private final List<Food> sausages = new ArrayList<>();
 
     private Fridge() {}
 
@@ -23,12 +23,12 @@ public class Fridge {
 
     public Food getNextMeat() throws NoMoreFoodException, FridgeIsEmptyException {
         if (meats.isEmpty()) throw new FridgeIsEmptyException("No more meat!");
-        return (Meat) meats.remove(0);
+        return meats.remove(0);
     }
 
     public Food getNextVegetable() throws FridgeIsEmptyException {
         if (vegetables.isEmpty()) throw new FridgeIsEmptyException("No more vegetables!");
-        return (Vegetable) vegetables.remove(0);
+        return vegetables.remove(0);
     }
 
     public void addFood(BellPepper corn) {

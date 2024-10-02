@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Garden {
     private static final int MAX_VEGETABLES = 27;
-    private List<Vegetable> vegetables;
+    private final List<Vegetable> vegetables;
 
     public Garden() {
         vegetables = new ArrayList<>();

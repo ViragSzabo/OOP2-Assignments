@@ -30,7 +30,7 @@ public class VeggieGarden {
 
             // Test too many vegetables exception
             for (int i = 0; i < 28; i++) {
-                garden.plantVegetable(new Asparagus()); // Will throw an exception after 27 vegetables
+                garden.plantVegetable(new Asparagus());
             }
 
         } catch (TooManyVegetablesException e) {

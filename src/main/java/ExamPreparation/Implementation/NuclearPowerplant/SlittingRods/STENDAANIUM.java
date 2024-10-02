@@ -9,9 +9,8 @@ public class STENDAANIUM extends SplittingRod {
             throw new MeltdownException("Temperature too high! Risk of meltdown.");
         }
 
-        // Your existing logic for calculating residual heat and steam
-        double steam = 50 * time; // Example logic for steam generation
-        double residualHeat = (temperature * temperature) / 3 * 20; // Example logic for residual heat
+        double steam = 50 * time;
+        double residualHeat = (temperature * temperature) / 3 * 20;
 
         return new double[]{residualHeat, steam};
     }

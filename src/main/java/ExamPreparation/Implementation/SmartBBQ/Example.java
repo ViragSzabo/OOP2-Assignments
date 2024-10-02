@@ -12,20 +12,25 @@ public class Example {
         fridge.addFood(new Sausage());
 
         // Add food to BBQ
-        try {
-            bbq.addFood(fridge.getNextMeat(), 0);
-        } catch (NoMoreFoodException | FridgeIsEmptyException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < 3; i++) {
+            fridge.addFood(new Corn());
         }
-        try {
-            bbq.addFood(fridge.getNextMeat(), 1);
-        } catch (NoMoreFoodException | FridgeIsEmptyException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < 2; i++) {
+            fridge.addFood(new BellPepper());
         }
+        for (int i = 0; i < 2; i++) {
+            fridge.addFood(new Hamburger());
+        }
+        for (int i = 0; i < 3; i++) {
+            fridge.addFood(new Sausage());
+        }
+
         try {
-            bbq.addFood(fridge.getNextVegetable(), 2);
-        } catch (FridgeIsEmptyException e) {
-            throw new RuntimeException(e);
+            for (int i = 0; i < 3; i++) {
+                bbq.addFood(fridge.getNextMeat(), i);
+            }
+        } catch (NoMoreFoodException | FridgeIsEmptyException e) {
+            throw new RuntimeException("Error while adding meat to BBQ", e);
         }
 
         // Turn on BBQ

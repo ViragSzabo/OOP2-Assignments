@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reactor {
-    private List<SplittingRod> splittingRods = new ArrayList<>();
+    private final List<SplittingRod> splittingRods = new ArrayList<>();
 
     public void addSplittingRod(SplittingRod rod) {
         splittingRods.add(rod);

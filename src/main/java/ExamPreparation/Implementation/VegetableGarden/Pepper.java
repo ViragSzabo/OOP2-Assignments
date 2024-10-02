@@ -15,7 +15,7 @@ public class Pepper extends Vegetable {
         if (water > BREAKDOWN_RAIN) {
             this.status = "destroyed";
         } else if (water < MIN_RAIN_TO_GROW) {
-            return; // Doesn't grow due to insufficient rain
+            // Doesn't grow due to insufficient rain
         } else {
             this.size += (sunshine * this.sunshineGrowthFactor) + (water * this.waterGrowthFactor);
             if (this.size >= MIN_SIZE && this.size <= MAX_SIZE) {

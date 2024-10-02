@@ -3,10 +3,10 @@ package ExamPreparation.Implementation.NuclearPowerplant.Reactors;
 import ExamPreparation.Implementation.NuclearPowerplant.MeltdownException;
 
 public class NuclearPowerPlant {
-    private Reactor reactor;
-    private Generator generator;
-    private CoolingSystem coolingSystem;
-    private ControlRoom controlRoom;
+    private final Reactor reactor;
+    private final Generator generator;
+    private final CoolingSystem coolingSystem;
+    private final ControlRoom controlRoom;
 
     public NuclearPowerPlant() {
         reactor = new Reactor();
