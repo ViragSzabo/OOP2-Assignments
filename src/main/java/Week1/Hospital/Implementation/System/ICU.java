@@ -79,20 +79,16 @@ public class ICU {
     }
 
     public int getTotalPatients() {
-        int count = 0;
-        for (Bed bed : beds) {
-            if (bed.isOccupied()) {
-                count++;
-            }
-        }
-        return count;
+        return patients.size();
     }
 
     public boolean admitPatient(Patient patient) throws CodeBlackException {
         if (getAvailableBeds().isEmpty()) {
             throw new CodeBlackException("No available beds.");
         }
-        if (calculateFTE() < requiredFTEForPatient()) {
+        double currentFTE = calculateFTE();
+        System.out.println("Calculated FTE: " + currentFTE);
+        if (currentFTE < requiredFTEForPatient()) {  // Change made here
             throw new CodeBlackException("Not enough FTE available.");
         }
         Bed bed = getAvailableBeds().get(0);
@@ -110,6 +106,7 @@ public class ICU {
                 totalFTE += 0.1;
             }
         }
+
         for (Patient patient : patients) {
             totalFTE += patient.isBedridden() ? 2.0 : 1.0;
         }

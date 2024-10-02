@@ -6,7 +6,7 @@ import Week1.Hospital.Implementation.System.Status;
 public class BloodPressureMonitor extends MedicalDevice {
     private BloodPressure bloodPressure;
 
-    public BloodPressureMonitor(String serialNumber, double energyConsumption) {
+    public BloodPressureMonitor(BloodPressure bloodPressure, String serialNumber, double energyConsumption) {
         super(serialNumber, energyConsumption);
         this.bloodPressure = bloodPressure;
     }

@@ -6,7 +6,7 @@ public class Bed {
 
     public Bed(int bedNumber) {
         this.bedNumber = bedNumber;
-        this.patient = null; // Initially, the bed is empty
+        this.patient = null;
     }
 
     public int getBedNumber() {
@@ -30,10 +30,10 @@ public class Bed {
     }
 
     public void vacateBed() {
-        this.patient = null; // Set patient to null to vacate the bed
+        this.patient = null;
     }
 
     public boolean isOccupied() {
-        return patient != null; // Bed is occupied if there is a patient
+        return patient != null;
     }
 }

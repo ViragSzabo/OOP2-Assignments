@@ -92,8 +92,8 @@ public class PatientTest {
 
     @Test
     public void testIsBedridden() {
-        assertFalse(patient.isBedridden()); // patient can walk initially
-        patient.setCanWalk(false); // update to bedridden
+        assertFalse(patient.isBedridden());
+        patient.setCanWalk(false);
         assertTrue(patient.isBedridden());
     }
 
@@ -103,16 +103,16 @@ public class PatientTest {
         assertEquals(Status.NORMAL, patient1.getStatus());
 
         // For WARNING status
-        patient.setHeartRate(76); // Setting heart rate to WARNING range
+        patient.setHeartRate(76);
         assertEquals(Status.WARNING, patient.getStatus());
 
         // For CRITICAL status
-        patient.setHeartRate(101); // Setting heart rate to CRITICAL range
+        patient.setHeartRate(101);
         assertEquals(Status.CRITICAL, patient.getStatus());
 
         // Test with Blood Pressure
         patient.setHeartRate(80);
-        patient.getBloodPressure().setSystolic(181); // Setting blood pressure to CRITICAL range
+        patient.getBloodPressure().setSystolic(181);
         assertEquals(Status.CRITICAL, patient.getStatus());
     }
 }

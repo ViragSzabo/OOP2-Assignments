@@ -74,7 +74,8 @@ public class Patient {
     }
 
     public Status getStatus() {
-        Status heartMonitorStatus = Status.NORMAL; // Default to NORMAL
+        Status heartMonitorStatus = Status.NORMAL;
+
         if (gender == 'M') {
             if (heartRate < 60 || heartRate > 100) {
                 heartMonitorStatus = Status.CRITICAL;

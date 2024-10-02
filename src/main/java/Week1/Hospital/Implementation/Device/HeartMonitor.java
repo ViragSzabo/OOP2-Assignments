@@ -6,7 +6,7 @@ public class HeartMonitor extends MedicalDevice {
     private int heartRate;
     private char gender; // 'M' or 'F'
 
-    public HeartMonitor(String serialNumber, double energyConsumption) {
+    public HeartMonitor(int heartRate, char gender, String serialNumber, double energyConsumption) {
         super(serialNumber, energyConsumption);
         this.heartRate = heartRate;
         this.gender = gender;

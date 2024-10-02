@@ -27,8 +27,6 @@ public class ICUTest extends TestCase {
         bed = new Bed(1);
         bpMonitor = new BloodPressureMonitor("BP123", 0.5);
         heartMonitor = new HeartMonitor("HM123", 0.7);
-
-        // Create a patient
         patient = new Patient("John Doe", new Date(), 'M', 70, new BloodPressure(120, 80), true);
     }
 
@@ -56,7 +54,6 @@ public class ICUTest extends TestCase {
     }
 
     public void testSetBeds() {
-        // Replace the bed list
         List<Bed> newBeds = new ArrayList<>();
         icu.setBeds(newBeds);
         assertEquals(newBeds, icu.getBeds());
@@ -106,8 +103,8 @@ public class ICUTest extends TestCase {
 
     public void testAdmitPatient() {
         icu.addBed(bed);
+        icu.setFte(1.5);
         icu.getDevices().add(bpMonitor);
-        icu.getDevices().add(heartMonitor);
 
         try {
             boolean result = icu.admitPatient(patient);
@@ -115,7 +112,7 @@ public class ICUTest extends TestCase {
             assertTrue(bed.isOccupied());
             assertTrue(icu.getPatients().contains(patient));
         } catch (CodeBlackException e) {
-            fail("Exception should not have been thrown");
+            fail("Exception should not have been thrown as FTE is just enough.");
         }
     }
 

@@ -9,7 +9,6 @@ public class BloodPressureTest {
 
     @Before
     public void setUp() {
-        // Initialize BloodPressure object
         bloodPressure = new BloodPressure(120, 80);
     }
 

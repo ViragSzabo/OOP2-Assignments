@@ -9,15 +9,15 @@ public class HeartMonitorTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        heartMonitor = new HeartMonitor("SN123", 1.5);
+        heartMonitor = new HeartMonitor(75, 'F',"SN123", 1.5);
     }
 
     public void testMonitorStatusCriticalForMale() {
         heartMonitor.setGender('M');
-        heartMonitor.setHeartRate(55); // Below critical threshold
+        heartMonitor.setHeartRate(55);
         assertEquals(Status.CRITICAL, heartMonitor.monitorStatus());
 
-        heartMonitor.setHeartRate(105); // Above critical threshold
+        heartMonitor.setHeartRate(105);
         assertEquals(Status.CRITICAL, heartMonitor.monitorStatus());
     }
 

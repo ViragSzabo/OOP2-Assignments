@@ -46,17 +46,17 @@ public class BedTest {
 
     @Test
     public void testVacateBed() {
-        bed.assignPatient(patient); // Assign patient first
+        bed.assignPatient(patient);
         bed.vacateBed();
-        assertNull(bed.getPatient()); // Bed should be vacant after vacating
+        assertNull(bed.getPatient());
     }
 
     @Test
     public void testIsOccupied() {
-        assertFalse(bed.isOccupied()); // Bed should be empty initially
+        assertFalse(bed.isOccupied());
         bed.assignPatient(patient);
-        assertTrue(bed.isOccupied()); // Bed should be occupied after assigning a patient
+        assertTrue(bed.isOccupied());
         bed.vacateBed();
-        assertFalse(bed.isOccupied()); // Bed should be empty after vacating
+        assertFalse(bed.isOccupied());
     }
 }
