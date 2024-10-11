@@ -1,4 +1,6 @@
-package Week4.Implementation.Airport;
+package Week4.Implementation.Airport.Travel;
+
+import Week4.Implementation.Airport.Flight.Flight;
 
 public class Booking {
     private Flight flight;
