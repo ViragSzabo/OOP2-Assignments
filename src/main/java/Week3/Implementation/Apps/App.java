@@ -46,9 +46,7 @@ public class App {
     }
 
     public boolean validateAge(int userAge) {
-        if (this.containsNudity && userAge < 18) {
-            return false;
-        }
+        if (this.containsNudity && userAge < 18) { return false; }
         else return !this.containsViolence || userAge >= 16;
     }
 }

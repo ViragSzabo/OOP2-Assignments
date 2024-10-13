@@ -6,25 +6,15 @@ import Week3.Implementation.Users.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppStore {
-    private String name;
+public abstract class AppStore {
     private String currency;
     private List<App> apps;
     protected List<Purchase> purchases;
 
-    public AppStore(String name, String currency) {
-        this.name = name;
+    public AppStore(String currency) {
         this.currency = currency;
         this.apps = new ArrayList<>();
         this.purchases = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getCurrency() {
@@ -51,16 +41,11 @@ public class AppStore {
         this.purchases = purchases;
     }
 
-    public void addApp(App app) {
-        apps.add(app);
-    }
+    public void addPurchase(Purchase purchase) { purchases.add(purchase);  }
 
-    public void purchaseApp(User user, App app) throws DownloadNotAllowedException {
-        if(!app.validateAge(user.getAge())) {
-            throw new DownloadNotAllowedException("User does not meet the age requirement for the app.");
-        }
-        purchases.add(new Purchase(user, app));
-    }
+    public abstract void uploadApp(App app) throws DownloadNotAllowedException;
+
+    public abstract void purchase(Purchase purchase);
 
     public double calculateTotalRevenue() {
         double total = 0;
@@ -70,13 +55,13 @@ public class AppStore {
         return total;
     }
 
-    public double calculateRevenueForApp(String appName) {
-        double appRevenue = 0;
+    public double calculateRevenueForApp(App app) {
+        double total = 0;
         for(Purchase purchase : purchases) {
-            if(purchase.getApp().getName().equals(appName)) {
-                appRevenue += purchase.getApp().getPrice();
+            if(purchase.getApp().equals(app)) {
+                total += app.getPrice();
             }
         }
-        return appRevenue;
+        return total;
     }
 }
