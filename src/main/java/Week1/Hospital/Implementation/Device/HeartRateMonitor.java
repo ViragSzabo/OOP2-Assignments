@@ -3,10 +3,10 @@ package Week1.Hospital.Implementation.Device;
 import Week1.Hospital.Implementation.Building.Patient;
 import Week1.Hospital.Implementation.System.Status;
 
-public class BloodPressureMonitor extends MedicalDevice {
+public class HeartRateMonitor extends MedicalDevice {
     private Status status;
 
-    public BloodPressureMonitor(String serialNumber, double energyConsumption) {
+    public HeartRateMonitor(String serialNumber, double energyConsumption) {
         super(serialNumber, energyConsumption);
         this.status = Status.NORMAL;
     }
@@ -21,6 +21,6 @@ public class BloodPressureMonitor extends MedicalDevice {
 
     @Override
     public String monitorPatient(Patient patient) {
-        return "Blood Pressure status: " + getStatus();
+        return "Heart status: " + getStatus();
     }
 }

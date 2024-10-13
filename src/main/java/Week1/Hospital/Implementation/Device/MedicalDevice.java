@@ -1,6 +1,6 @@
 package Week1.Hospital.Implementation.Device;
 
-import Week1.Hospital.Implementation.System.Status;
+import Week1.Hospital.Implementation.Building.Patient;
 
 public abstract class MedicalDevice {
     protected String serialNumber;
@@ -11,5 +11,5 @@ public abstract class MedicalDevice {
         this.energyConsumption = energyConsumption;
     }
 
-    public abstract Status monitorStatus();
+    public abstract String monitorPatient(Patient patient);
 }

@@ -1,44 +1,45 @@
 package Week1.Hospital.Implementation.System;
 
 import Week1.Hospital.Implementation.Building.Bed;
-import Week1.Hospital.Implementation.Device.BloodPressureMonitor;
-import Week1.Hospital.Implementation.Device.HeartMonitor;
-import Week1.Hospital.Implementation.Device.MedicalDevice;
 import Week1.Hospital.Implementation.Building.Patient;
+import Week1.Hospital.Implementation.Staff.StaffMember;
 import Week2.Implementation.Hospital_Part2.CodeBlackException;
+import Week2.Implementation.Hospital_Part2.FTECalculator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ICU {
     private String location;
-    private double fte;
     private List<Bed> beds;
-    private List<MedicalDevice> devices;
+    private List<StaffMember> staffMembers;
     private List<Patient> patients;
+    private FTECalculator fteCalculator;
 
-    public ICU(String location, double fte) {
+    public ICU(String location) {
         this.location = location;
-        this.fte = fte;
         this.beds = new ArrayList<>();
-        this.devices = new ArrayList<>();
+        this.staffMembers = new ArrayList<>();
+        this.fteCalculator = new FTECalculator();
         this.patients = new ArrayList<>();
     }
 
-    public String getLocation() {
-        return location;
-    }
+    public FTECalculator getFteCalculator() { return fteCalculator; }
+
+    public void setFteCalculator(FTECalculator fteCalculator) { this.fteCalculator = fteCalculator; }
+
+    public String getLocation() { return location; }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public double getFte() {
-        return fte;
-    }
+    public List<Patient> getPatients() { return patients; }
 
-    public void setFte(double fte) {
-        this.fte = fte;
+    public void addPatient(Patient patient) { this.patients.add(patient); }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
     public List<Bed> getBeds() {
@@ -53,101 +54,45 @@ public class ICU {
         beds.add(bed);
     }
 
-    public List<MedicalDevice> getDevices() {
-        return devices;
+    public List<StaffMember> getStaffMember() {
+        return staffMembers;
     }
 
-    public void setDevices(List<MedicalDevice> devices) {
-        this.devices = devices;
-    }
+    public void setStaffMember(List<StaffMember> staffMembers) { this.staffMembers = staffMembers; }
 
-    public void addDevice(MedicalDevice device) {
-        devices.add(device);
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-    public void addPatient(Patient patient) {
-        for(Bed bed : beds) {
-            if(bed.getPatient().equals(patient)) {
-                patients.add(patient);
-            }
-        }
+    public void addStaffMember(StaffMember staffMember) {
+        staffMembers.add(staffMember);
     }
 
     public List<Bed> getAvailableBeds() {
         List<Bed> availableBeds = new ArrayList<>();
         for (Bed bed : beds) {
-            if (!bed.isOccupied()) {
+            if (!bed.getIsOccupied()) {
                 availableBeds.add(bed);
             }
         }
         return availableBeds;
     }
 
-    public int getTotalPatients() {
-        return patients.size();
+    public void admitPatient(Patient patient) throws CodeBlackException {
+        if(!canAdmitPatient(patient)) {
+            throw new CodeBlackException("No room for new patient.");
+        }
+        Bed availableBed = getAvailableBeds().get(0);
+        availableBed.assignPatient(patient);
+        patients.add(patient);
+        fteCalculator.addDependency("Patient", 1);
+
+        if(!patient.isCanWalk()) {
+            fteCalculator.addDependency("Bedridden Patient", 1);
+        }
     }
 
-    public boolean admitPatient(Patient patient) throws CodeBlackException {
-        boolean admitted = false;
-        for(Bed bed : beds) {
-            if (!bed.isOccupied()) {
-                bed.assignPatient(patient);
-                patients.add(patient);
-                admitted = true;
-                System.out.println(patient.getName() + " is assigned to bed number " + bed.getBedNumber());
-            } else {
-                System.out.println(patient.getName() + " cannot be assigned.");
-                throw new CodeBlackException("No available beds.");
-            }
-        }
-        return admitted;
+    public boolean canAdmitPatient(Patient patient) {
+        return !getAvailableBeds().isEmpty() && (fteCalculator.calculateTotalFTEs() < getAvailableFTEs());
     }
 
-    protected double calculateFTE() {
-        double totalFTE = 0.0;
-
-        for (MedicalDevice device : devices) {
-            if (device instanceof HeartMonitor) {
-                totalFTE += 0.3;
-                System.out.println("Go through heart monitors: " + totalFTE);
-            } else if (device instanceof BloodPressureMonitor) {
-                totalFTE += 0.1;
-                System.out.println("Go through blood pressure monitors: " + totalFTE);
-            }
-        }
-
-        System.out.println("Go see the patient");
-
-        for (Patient patient : patients) {
-            totalFTE += (patient.isBedridden() ? 2.0 : 1.0);
-            System.out.println("The patient can walk: " + patient.canWalk() + ", so total: " + totalFTE);
-        }
-
-        int totalDependencies = devices.size() + patients.size();
-        if (totalDependencies > 5) {
-            totalFTE += (totalDependencies - 5) * 0.2;
-            System.out.println("Then the total dependencies: " + totalFTE);
-        }
-
-        System.out.println("Total: " + totalFTE);
-        return totalFTE;
-    }
-
-    protected boolean isEnoughFTEForPatient() throws CodeBlackException {
-        boolean isEnough = false;
-        if(calculateFTE() >= 1.0) {
-            System.out.println("Reached the required FTE for the patient!");
-            isEnough = true;
-        } else {
-            throw new CodeBlackException("Not enough FTE");
-        }
-        return isEnough;
+    public double getAvailableFTEs() {
+        return 10.0;
     }
 }
