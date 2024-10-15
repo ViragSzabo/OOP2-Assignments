@@ -3,7 +3,7 @@ package Week2.Implementation.Hospital_Part2;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FTECalculator {
+public class FTE {
     private static final double HEART_MONITOR_FTE = 0.3;
     private static final double BLOOD_PRESSURE_MONITOR_FTE = 0.1;
     private static final double PATIENT_FTE = 1.0;
@@ -11,7 +11,7 @@ public class FTECalculator {
     private static final double OVERHEAD_FTE_PER_UNIT = 0.2;
     private Map<String, Integer> dependencies;
 
-    public FTECalculator() {
+    public FTE() {
         dependencies = new HashMap<String, Integer>();
     }
 

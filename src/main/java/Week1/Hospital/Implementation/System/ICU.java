@@ -4,7 +4,7 @@ import Week1.Hospital.Implementation.Building.Bed;
 import Week1.Hospital.Implementation.Building.Patient;
 import Week1.Hospital.Implementation.Staff.StaffMember;
 import Week2.Implementation.Hospital_Part2.CodeBlackException;
-import Week2.Implementation.Hospital_Part2.FTECalculator;
+import Week2.Implementation.Hospital_Part2.FTE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +14,19 @@ public class ICU {
     private List<Bed> beds;
     private List<StaffMember> staffMembers;
     private List<Patient> patients;
-    private FTECalculator fteCalculator;
+    private FTE fte;
 
     public ICU(String location) {
         this.location = location;
         this.beds = new ArrayList<>();
         this.staffMembers = new ArrayList<>();
-        this.fteCalculator = new FTECalculator();
+        this.fte = new FTE();
         this.patients = new ArrayList<>();
     }
 
-    public FTECalculator getFteCalculator() { return fteCalculator; }
+    public FTE getFteCalculator() { return fte; }
 
-    public void setFteCalculator(FTECalculator fteCalculator) { this.fteCalculator = fteCalculator; }
+    public void setFteCalculator(FTE fte) { this.fte = fte; }
 
     public String getLocation() { return location; }
 
@@ -81,15 +81,15 @@ public class ICU {
         Bed availableBed = getAvailableBeds().get(0);
         availableBed.assignPatient(patient);
         patients.add(patient);
-        fteCalculator.addDependency("Patient", 1);
+        fte.addDependency("Patient", 1);
 
         if(!patient.isCanWalk()) {
-            fteCalculator.addDependency("Bedridden Patient", 1);
+            fte.addDependency("Bedridden Patient", 1);
         }
     }
 
     public boolean canAdmitPatient(Patient patient) {
-        return !getAvailableBeds().isEmpty() && (fteCalculator.calculateTotalFTEs() < getAvailableFTEs());
+        return !getAvailableBeds().isEmpty() && (fte.calculateTotalFTEs() < getAvailableFTEs());
     }
 
     public double getAvailableFTEs() {
