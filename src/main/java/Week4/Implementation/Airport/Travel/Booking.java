@@ -1,39 +1,40 @@
 package Week4.Implementation.Airport.Travel;
 
 import Week4.Implementation.Airport.Flight.Flight;
+import Week4.Implementation.Airport.Luggage.Luggage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Booking {
     private Flight flight;
-    private Passenger passenger;
-    private String bookingStatus;
+    private List<Passenger> passengers;
+    private BookStatus bookingStatus;
+    private List<Luggage> luggages;
 
-    public Booking(Flight flight, Passenger passenger, String bookingStatus) {
+    public Booking(Flight flight) {
         this.flight = flight;
-        this.passenger = passenger;
-        this.bookingStatus = bookingStatus;
+        this.passengers = new ArrayList<>();
+        this.bookingStatus = BookStatus.CONFIRMED;
+        this.luggages = new ArrayList<>();
     }
 
-    public Flight getFlight() {
-        return flight;
-    }
-
+    public Flight getFlight() { return flight; }
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public List<Passenger> getPassenger() {
+        return this.passengers;
     }
+    public void addPassenger(Passenger passenger) { this.passengers.add(passenger); }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
+    public List<Luggage> getLuggages() { return luggages;  }
+    public void addLuggage(Luggage luggage) { this.luggages.add(luggage); }
+    public void removeLuggage(Luggage luggage) { this.luggages.remove(luggage); }
 
-    public String getBookingStatus() {
-        return bookingStatus;
+    public BookStatus getBookingStatus() {
+        return this.bookingStatus;
     }
-
-    public void setBookingStatus(String bookingStatus) {
-        this.bookingStatus = bookingStatus;
-    }
+    public void cancelBooking() { this.bookingStatus = BookStatus.CANCELLED; }
 }

@@ -9,18 +9,16 @@ public class Airport {
 
     public Airport(String code) {
         this.code = code;
-        distances = new HashMap<>();
+        this.distances = new HashMap<>();
     }
 
     public void addDistance(String destinationCode, int distance) {
-        distances.put(destinationCode, distance);
+        this.distances.put(destinationCode, distance);
     }
 
-    public int getDistance(String destinationCode) {
-        return distances.getOrDefault(destinationCode, 0);
+    public Map<String, Integer> getDistance() {
+        return this.distances;
     }
 
-    public String getCode() {
-        return code;
-    }
+    public String getCode() { return code; }
 }

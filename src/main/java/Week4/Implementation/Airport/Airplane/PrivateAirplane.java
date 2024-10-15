@@ -1,31 +1,35 @@
 package Week4.Implementation.Airport.Airplane;
 
+import Week4.Implementation.Airport.Flight.Flight;
+import Week4.Implementation.Airport.Luggage.Luggage;
+
+import java.util.Map;
+
 public class PrivateAirplane extends Airplane {
-    private int totalSeats;
-    private int takenSeats;
+    private int numberOfSeats;
 
-    public PrivateAirplane(String code, double fuelLevel, int totalSeats) {
+    public PrivateAirplane(String code, double fuelLevel, int numberOfSeats) {
         super(code, fuelLevel);
-        this.totalSeats = totalSeats;
-        this.takenSeats = 0;
+        this.numberOfSeats = numberOfSeats;
     }
 
     @Override
-    public double calculateFuelConsumption(double distance, int takenSeats, double luggageWeight) {
-        this.takenSeats = takenSeats;
-        return totalSeats * 1.31 * distance + (takenSeats * 1.87) + (luggageWeight * 0.4);
+    public int getTotalSeats() { return this.numberOfSeats; }
+
+    @Override
+    public double getFuelUsage(Flight flight) {
+        double distance = 1000; //flight.getDepartureAirport().getDistance();
+        int seatsTaken = flight.getPassengers().size();
+        double luggageWeight = (
+                flight.getBookings().stream()
+                .flatMap(booking -> booking.getLuggages().stream())
+                .mapToDouble(Luggage::getWeight).sum()
+        );
+        return numberOfSeats * 1.31 * distance + ((seatsTaken * 1.87) + (luggageWeight * 0.4));
     }
 
     @Override
-    public int getEmptySeats() {
-        return totalSeats - takenSeats;
-    }
-
-    public void bookSeat() {
-        if (takenSeats < totalSeats) {
-            takenSeats++;
-        } else {
-            throw new IllegalArgumentException("No empty seats available.");
-        }
+    public boolean researveSeat(Flight flight) {
+        return false;
     }
 }

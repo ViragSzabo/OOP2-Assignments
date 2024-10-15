@@ -1,5 +1,9 @@
 package Week4.Implementation.Airport.Airplane;
 
+import Week4.Implementation.Airport.Flight.Flight;
+import Week4.Implementation.Airport.Luggage.Luggage;
+import Week4.Implementation.Airport.Luggage.LuggageType;
+
 public class CommercialAirplane extends Airplane {
     private int economySeats;
     private int businessSeats;
@@ -15,29 +19,44 @@ public class CommercialAirplane extends Airplane {
     }
 
     @Override
-    public double calculateFuelConsumption(double distance, int takenSeats, double luggageWeight) {
-        return (economySeats * 1.75 + businessSeats * 1.98) * distance +
-                (economyTakenSeats * 2.02) + (businessTakenSeats * 2.87) + (luggageWeight * 0.3);
+    public int getTotalSeats() { return economySeats + businessSeats; }
+
+    @Override
+    public double getFuelUsage(Flight flight) {
+        double totalSeats = (economySeats * 1.75 + businessSeats * 1.98);
+        double distance = 1000; //flight.getDepartureAirport().getDistance(flight.getArrivalAirport());
+
+        int economyTaken = (int) (
+                flight.getBookings()
+                .stream()
+                .filter(
+                booking -> booking.getLuggages()
+                        .stream()
+                        .anyMatch(luggage -> luggage.getType().equals(LuggageType.CARRY_ON)))
+                .count()
+        );
+
+        int businessTaken = flight.getPassengers().size() - economyTaken;
+        double totalSeatsTaken = (economyTaken * 2.02) + (businessTaken * 2.87);
+
+        double luggageWeight = flight.getBookings().stream()
+                .flatMap(booking -> booking.getLuggages().stream())
+                .mapToDouble(Luggage::getWeight).sum();
+
+        totalSeatsTaken += luggageWeight * 0.3;
+
+        return totalSeats * distance + totalSeatsTaken + luggageWeight;
     }
 
     @Override
-    public int getEmptySeats() {
-        return (economySeats - economyTakenSeats) + (businessSeats - businessTakenSeats);
-    }
-
-    public void bookEconomySeat() {
+    public boolean researveSeat(Flight flight) {
         if (economyTakenSeats < economySeats) {
             economyTakenSeats++;
-        } else {
-            throw new IllegalArgumentException("No empty economy seats available.");
-        }
-    }
-
-    public void bookBusinessSeat() {
-        if (businessTakenSeats < businessSeats) {
+            return true;
+        } else if (businessTakenSeats < businessSeats) {
             businessTakenSeats++;
-        } else {
-            throw new IllegalArgumentException("No empty business seats available.");
+            return true;
         }
+        return false;
     }
 }

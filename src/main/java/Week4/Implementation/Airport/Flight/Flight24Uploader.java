@@ -1,37 +1,42 @@
 package Week4.Implementation.Airport.Flight;
 
-import java.io.BufferedWriter;
+import Week4.Implementation.Airport.Airplane.Airplane;
+import Week4.Implementation.Airport.Airplane.CommercialAirplane;
+import Week4.Implementation.Airport.Airplane.PrivateAirplane;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class Flight24Uploader {
-    private List<Flight> flights;
-    private String filePath;
-
-    public Flight24Uploader(List<Flight> flights, String filePath) {
-        this.flights = flights;
-        this.filePath = filePath;
-    }
-
-    public void upload() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(getFlightData()); // Write the flight data to the file
-            System.out.println("Flight data uploaded successfully to " + filePath);
+    public void uploadFlightData(Flight flight) {
+        String flightData = flight.getFlightInfo();
+        try (FileWriter writer = new FileWriter("flight_data.txt", true)) {
+            writer.write(flightData + "\n");
         } catch (IOException e) {
-            System.err.println("Error writing flight data to file: " + e.getMessage());
+            System.out.println("Error writing flight data: " + e.getMessage());
         }
     }
 
-    public String getFlightData() {
-        StringBuilder data = new StringBuilder();
-        for (Flight flight : flights) {
-            data.append(flight.getFlightInfo()).append("\n");
+    public void uploadAirplaneData(Airplane airplane) {
+        String airplaneData;
+        if (airplane instanceof PrivateAirplane) {
+            PrivateAirplane pa = (PrivateAirplane) airplane;
+            airplaneData = String.format("P: %s. %.2f liter fuel. %d empty seats.",
+                    pa.getCode(), pa.getFuelLevel(), pa.getTotalSeats());
+        } else if (airplane instanceof CommercialAirplane) {
+            CommercialAirplane ca = (CommercialAirplane) airplane;
+            int emptyEconomySeats = ca.getTotalSeats() - ca.getTotalSeats();
+            int emptyBusinessSeats = ca.getTotalSeats() - ca.getTotalSeats();
+            airplaneData = String.format("C: %s. %.2f liter fuel. %d economy seats, %d business seats.",
+                    ca.getCode(), ca.getFuelLevel(), emptyEconomySeats, emptyBusinessSeats);
+        } else {
+            airplaneData = "Unknown airplane type.";
         }
-        return data.toString();
-    }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+        try (FileWriter writer = new FileWriter("airplane_data.txt", true)) {
+            writer.write(airplaneData + "\n");
+        } catch (IOException e) {
+            System.out.println("Error writing airplane data: " + e.getMessage());
+        }
     }
 }
