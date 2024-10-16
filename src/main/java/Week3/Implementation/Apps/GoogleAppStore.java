@@ -1,5 +1,6 @@
 package Week3.Implementation.Apps;
 
+import Week3.Implementation.Conditions.DownloadNotAllowedException;
 import Week3.Implementation.Users.Purchase;
 
 public class GoogleAppStore extends AppStore {

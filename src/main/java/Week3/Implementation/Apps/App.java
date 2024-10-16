@@ -13,6 +13,10 @@ public class App {
         this.containsNudity = nudity;
     }
 
+    public void registerApp() {
+        new App(this.name, this.price, this.containsViolence, this.containsNudity);
+    }
+
     public String getName() {
         return name;
     }
@@ -43,10 +47,5 @@ public class App {
 
     public void setContainsNudity(boolean containsNudity) {
         this.containsNudity = containsNudity;
-    }
-
-    public boolean validateAge(int userAge) {
-        if (this.containsNudity && userAge < 18) { return false; }
-        else return !this.containsViolence || userAge >= 16;
     }
 }

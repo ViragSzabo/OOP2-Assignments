@@ -1,7 +1,7 @@
 package Week3.Implementation.Apps;
 
+import Week3.Implementation.Conditions.DownloadNotAllowedException;
 import Week3.Implementation.Users.Purchase;
-import Week3.Implementation.Users.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,13 @@ public abstract class AppStore {
         this.purchases = purchases;
     }
 
-    public void addPurchase(Purchase purchase) { purchases.add(purchase);  }
+    public void addPurchase(Purchase purchase) {
+        App app = purchase.getApp();
+        double getDeveloperRevenue = app.getPrice() * 0.3;
+        purchases.add(purchase);
+        System.out.println("App price: " + app.getPrice() +
+                        " Developer's price: " + getDeveloperRevenue);
+    }
 
     public abstract void uploadApp(App app) throws DownloadNotAllowedException;
 

@@ -1,6 +1,7 @@
 package Week3.Implementation.Users;
 
-import Week3.Implementation.Apps.App;
+import Week2.Implementation.Hospital_Part2.CodeBlackException;
+import Week3.Implementation.Conditions.Validation;
 
 import java.time.Period;
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class User {
 
     public User(String name, String email, LocalDate birthDate) {
         this.name = name;
-        this.email = validateEmail(email) ? email : null;
+        this.email = email;
         this.birthDate = birthDate;
     }
 
@@ -40,16 +41,5 @@ public class User {
 
     public int getAge() {
         return Period.between(birthDate, LocalDate.now()).getYears();
-    }
-
-    public boolean canDownload(App app) {
-        if(app.isContainsNudity() && getAge() < 18) {
-            return false;
-        }
-        return !app.isContainsViolence() || getAge() >= 16;
-    }
-
-    public static boolean validateEmail(String email) {
-        return email.contains("@");
     }
 }

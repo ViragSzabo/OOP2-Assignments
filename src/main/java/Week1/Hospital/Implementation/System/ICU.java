@@ -11,10 +11,10 @@ import java.util.List;
 
 public class ICU {
     private String location;
-    private List<Bed> beds;
-    private List<StaffMember> staffMembers;
-    private List<Patient> patients;
-    private List<MedicalDevice> allDevices;
+    private final List<Bed> beds;
+    private final List<StaffMember> staffMembers;
+    private final List<Patient> patients;
+    private final List<MedicalDevice> allDevices;
 
     private static final float OVERHEAD_FTE_PER_UNIT = 0.2F;
 
