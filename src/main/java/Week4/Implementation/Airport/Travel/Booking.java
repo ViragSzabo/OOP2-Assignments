@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Booking {
     private Flight flight;
-    private List<Passenger> passengers;
+    private final List<Passenger> passengers;
     private BookStatus bookingStatus;
-    private List<Luggage> luggages;
+    private final List<Luggage> luggages;
 
     public Booking(Flight flight) {
         this.flight = flight;

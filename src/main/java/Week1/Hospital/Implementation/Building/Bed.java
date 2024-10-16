@@ -1,6 +1,7 @@
 package Week1.Hospital.Implementation.Building;
 
-import Week1.Hospital.Implementation.Device.MedicalDevice;
+import Week1.Hospital.Implementation.Building.Device.MedicalDevice;
+import Week1.Hospital.Implementation.Patient.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class Bed {
     private int bedNumber;
     private boolean isOccupied;
-    private List<MedicalDevice> devices;
+    private final List<MedicalDevice> devices;
     private Patient patient;
 
     public Bed(int bedNumber) {
@@ -31,13 +32,9 @@ public class Bed {
 
     public void addDevice(MedicalDevice device) { this.devices.add(device); }
 
-    public Patient getPatient() {
-        return patient;
-    }
+    public void removeDevice(MedicalDevice device) { this.devices.remove(device); }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
+    public Patient getPatient() { return patient; }
 
     public void assignPatient(Patient patient) {
         this.patient = patient;

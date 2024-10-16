@@ -21,9 +21,11 @@ public class PasswordValidation implements ValidationRule {
     @Override
     public boolean isValid(User user) throws ValidationException {
         String password = user.getPassword();
+
         if(!allowSpaces && password.contains(" ")) {
             throw new ValidationException("Password cannot contain spaces.");
         }
+
         if (requireSpecialCharacters && !password.matches(".*[!@#$%^&*].*")) {
             throw new ValidationException("Password must contain a special character.");
         }
@@ -39,6 +41,7 @@ public class PasswordValidation implements ValidationRule {
         if (requireUppercase && !password.matches(".*[A-Z].*")) {
             throw new ValidationException("Password must contain an uppercase letter.");
         }
+
         return true;
     }
 }

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Flight {
-    private Airplane airplane;
-    private Airport departureAirport;
-    private Airport arrivalAirport;
-    private LocalDateTime departureTime;
+    private final Airplane airplane;
+    private final Airport departureAirport;
+    private final Airport arrivalAirport;
+    private final LocalDateTime departureTime;
     private FlightStatus status;
-    private List<Passenger> passengers;
-    private List<Booking> bookings;
+    private final List<Passenger> passengers;
+    private final List<Booking> bookings;
 
     public Flight(Airplane airplane, Airport departure, Airport arrival, LocalDateTime departureTime) {
         this.airplane = airplane;

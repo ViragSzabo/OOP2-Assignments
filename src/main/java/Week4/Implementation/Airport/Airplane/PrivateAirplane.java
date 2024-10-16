@@ -6,7 +6,7 @@ import Week4.Implementation.Airport.Luggage.Luggage;
 import java.util.Map;
 
 public class PrivateAirplane extends Airplane {
-    private int numberOfSeats;
+    private final int numberOfSeats;
 
     public PrivateAirplane(String code, double fuelLevel, int numberOfSeats) {
         super(code, fuelLevel);

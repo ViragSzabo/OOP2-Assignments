@@ -13,6 +13,7 @@ import Week4.Implementation.Airport.Travel.Booking;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Example {
     public static void main(String[] args) {
@@ -59,7 +60,7 @@ public class Example {
             Booking booking1 = bookingSystem.createBooking(flight1, Arrays.asList(passenger1, passenger2));
             System.out.println("Booking1 created successfully.");
 
-            Booking booking2 = bookingSystem.createBooking(flight2, Arrays.asList(passenger3));
+            Booking booking2 = bookingSystem.createBooking(flight2, Collections.singletonList(passenger3));
             System.out.println("Booking2 created successfully.");
 
         } catch (Exception e) {

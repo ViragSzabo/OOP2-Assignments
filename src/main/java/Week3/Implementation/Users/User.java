@@ -46,10 +46,7 @@ public class User {
         if(app.isContainsNudity() && getAge() < 18) {
             return false;
         }
-        if(app.isContainsViolence() && getAge() < 16) {
-            return false;
-        }
-        return true;
+        return !app.isContainsViolence() || getAge() >= 16;
     }
 
     public static boolean validateEmail(String email) {

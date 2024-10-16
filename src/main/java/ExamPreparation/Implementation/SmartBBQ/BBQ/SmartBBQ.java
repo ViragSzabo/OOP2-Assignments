@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class SmartBBQ {
     private int temperature;
     private boolean isOn = false;
-    private Food[] foodItems = new Food[6];
+    private final Food[] foodItems = new Food[6];
     private Timer bbqTimer;
 
     public void setTemperature(int temperature) {
@@ -75,7 +75,7 @@ public class SmartBBQ {
             for(Food food : foodItems) {
                 if(food != null) {
                     food.grill(temperature);
-                    System.out.println(food.toString() + "is being grilled.");
+                    System.out.println(food + "is being grilled.");
                 }
             }
         }

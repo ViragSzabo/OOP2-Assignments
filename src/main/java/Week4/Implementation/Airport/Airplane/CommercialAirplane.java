@@ -5,8 +5,8 @@ import Week4.Implementation.Airport.Luggage.Luggage;
 import Week4.Implementation.Airport.Luggage.LuggageType;
 
 public class CommercialAirplane extends Airplane {
-    private int economySeats;
-    private int businessSeats;
+    private final int economySeats;
+    private final int businessSeats;
     private int economyTakenSeats;
     private int businessTakenSeats;
 

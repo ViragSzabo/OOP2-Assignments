@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Airport {
-    private String code;
-    private Map<String, Integer> distances; // Distance to other airports
+    private final String code;
+    private final Map<String, Integer> distances;
 
     public Airport(String code) {
         this.code = code;

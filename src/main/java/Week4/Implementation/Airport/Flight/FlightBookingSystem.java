@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FlightBookingSystem {
-    private List<Flight> flights;
-    private List<Booking> bookings;
+    private final List<Flight> flights;
+    private final List<Booking> bookings;
 
     public FlightBookingSystem() {
         this.flights = new ArrayList<>();

@@ -1,6 +1,6 @@
-package Week1.Hospital.Implementation.Device;
+package Week1.Hospital.Implementation.Building.Device;
 
-import Week1.Hospital.Implementation.Building.Patient;
+import Week1.Hospital.Implementation.Patient.Patient;
 
 public abstract class MedicalDevice {
     protected String serialNumber;
@@ -11,5 +11,6 @@ public abstract class MedicalDevice {
         this.energyConsumption = energyConsumption;
     }
 
+    public abstract float calcRequiredFTE();
     public abstract String monitorPatient(Patient patient);
 }
