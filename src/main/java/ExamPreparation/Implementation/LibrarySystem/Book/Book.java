@@ -3,14 +3,14 @@ package ExamPreparation.Implementation.LibrarySystem.Book;
 public class Book {
     private String title;
     private String author;
-    private int year;
+    private int publicationYear;
     private String isbn;
     private Status status;
 
-    public Book(String title, String author, int year, String isbn) {
+    public Book(String title, String author, int publicationYear, String isbn) {
         this.title = title;
         this.author = author;
-        this.year = year;
+        this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.status = Status.AVAILABLE;
     }
@@ -32,11 +32,11 @@ public class Book {
     }
 
     public int getYear() {
-        return year;
+        return publicationYear;
     }
 
     public void setYear(int year) {
-        this.year = year;
+        this.publicationYear = year;
     }
 
     public String getIsbn() {

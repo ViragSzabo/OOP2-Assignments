@@ -2,41 +2,65 @@ package ExamPreparation.Implementation.LibrarySystem.Transaction;
 
 import ExamPreparation.Implementation.LibrarySystem.Book.Book;
 import ExamPreparation.Implementation.LibrarySystem.Book.Status;
-import ExamPreparation.Implementation.LibrarySystem.Library;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class BorrowTransaction {
-    private final Library library;
-    private final double LATEFEE;
-    private final int DUE_DAY;
+    private Book book;
+    private LocalDate borrowDate;
+    private LocalDate returnDate;
+    private boolean returned;
 
-    public BorrowTransaction(Library library) {
-        this.library = library;
-        this.LATEFEE = 1.0;
-        this.DUE_DAY = 30;
+    public BorrowTransaction(Book book, LocalDate borrowDate, int borrowDays) {
+        this.book = book;
+        this.borrowDate = borrowDate;
+        this.returnDate = borrowDate.plusDays(borrowDays);
+        this.returned = false;
     }
 
-    public boolean checkAvailability(Book requestedBook) throws TooManyBooksException {
-        for(Book book : library.getAvailableBooks()) {
-            if(book.equals(requestedBook) && requestedBook.getStatus() == Status.AVAILABLE) {
-                library.borrowBook(requestedBook);
-                return requestedBook.getStatus() == Status.AVAILABLE;
-            }
-        }
-        return false;
+    public Book getBook() {
+        return book;
     }
 
-    public double checkDueDate(Book requestedBook) throws OVERDUEEXCEPTION {
-        double priceToPay = 0;
-        int day = library.getBorrowedBooks().get(requestedBook).getDayOfMonth();
-        if(library.getBorrowedBooks().containsKey(requestedBook)) {
-            if(day > DUE_DAY) {
-                priceToPay = (day - DUE_DAY) * LATEFEE;
-                System.out.println("Current payment: " + priceToPay);
-                throw new OVERDUEEXCEPTION("PLEASE RETURN THE BOOK! It's been past the due date!");
-            } else {
-                System.out.println(requestedBook + " has been out for " + day + " days.");
-            }
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(LocalDate borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public double calculateLateFee() {
+        if (!returned && LocalDate.now().isAfter(returnDate)) {
+            int overdueDays = (int) ChronoUnit.DAYS.between(returnDate, LocalDate.now());
+            return overdueDays * 0.5;
         }
-        return priceToPay;
+        return 0;
+    }
+
+    public void returnBook() {
+        book.setStatus(Status.AVAILABLE);
+        this.returned = true;
     }
 }
