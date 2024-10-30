@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class People {
-    private String iD;
-    private String name;
-    private List<Book> books;
+    private final String iD;
+    private final String name;
+    private final List<Book> books;
 
     public People(String iD, String name) {
         this.iD = iD;
