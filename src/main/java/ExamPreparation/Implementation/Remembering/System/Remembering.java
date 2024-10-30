@@ -16,8 +16,8 @@ public class Remembering {
         tm.addCelebrity(matthewPerry);
         tm.addCelebrity(liamPayne);
 
-        matthewPerry.addWork(new Work("Friends", WorkType.SERIES));
-        liamPayne.addWork(new Work("Strip That Down", WorkType.SONG));
+        matthewPerry.addWorkToTimeline(1994, new Work("Friends", WorkType.SERIES));
+        liamPayne.addWorkToTimeline(2019, new Work("Strip That Down", WorkType.SONG));
 
         // User interaction to add tributes
         Scanner scanner = new Scanner(System.in);
