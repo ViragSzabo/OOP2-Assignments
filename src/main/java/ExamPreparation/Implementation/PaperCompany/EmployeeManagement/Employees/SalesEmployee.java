@@ -3,7 +3,7 @@ package ExamPreparation.Implementation.PaperCompany.EmployeeManagement.Employees
 import ExamPreparation.Implementation.PaperCompany.EmployeeManagement.Departments.Department;
 
 public class SalesEmployee extends Employee {
-    private double commissionRate;
+    private final double commissionRate;
     private double totalSales;
 
     public SalesEmployee(String employeeId, String name, double baseSalary, Department department, double commissionRate) {

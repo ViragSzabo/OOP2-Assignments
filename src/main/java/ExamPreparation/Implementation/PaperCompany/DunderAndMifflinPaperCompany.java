@@ -5,7 +5,7 @@ import ExamPreparation.Implementation.PaperCompany.EmployeeManagement.Employees.
 import ExamPreparation.Implementation.PaperCompany.EmployeeManagement.Employees.RiskEmployee;
 import ExamPreparation.Implementation.PaperCompany.EmployeeManagement.Employees.SalesEmployee;
 
-public class CompanyManagementSystem {
+public class DunderAndMifflinPaperCompany {
     public static void main(String[] args) {
 
         // Initialize departments with specific features

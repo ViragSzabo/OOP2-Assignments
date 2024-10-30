@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
-    private String orderId;
-    private Map<PaperProduct, Integer> products;
+    private final String orderId;
+    private final Map<PaperProduct, Integer> products;
     private double totalAmount;
-    private double discountRate; // e.g., bulk discount for large orders
+    private final double discountRate; // e.g., bulk discount for large orders
 
     public Order(String orderId, double discountRate) {
         this.orderId = orderId;
