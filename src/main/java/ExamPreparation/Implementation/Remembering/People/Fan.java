@@ -1,12 +1,14 @@
 package ExamPreparation.Implementation.Remembering.People;
 
+import ExamPreparation.Implementation.Remembering.System.Tribute;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fan {
     private String fanId;
     private String name;
-    private List<String> tributes;
+    private List<Tribute> tributes;
     private int automaticCount;
 
     public Fan(String name) {
@@ -31,25 +33,31 @@ public class Fan {
         this.name = name;
     }
 
-    public List<String> getTributes() {
+    public List<Tribute> getTributes() {
         return tributes;
     }
 
-    public void setTributes(List<String> tributes) {
+    public void setTributes(List<Tribute> tributes) {
         this.tributes = tributes;
     }
 
-    public void addTribute(String tribute) {
+    public void addTribute(Tribute tribute) {
         this.tributes.add(tribute);
     }
 
-    public void removeTribute(String tribute) {
+    public void removeTribute(Tribute tribute) {
         this.tributes.remove(tribute);
+    }
+
+    public void likeTribute(int index) {
+        if(index >= 0 && index < tributes.size()) {
+            this.tributes.get(index).like();
+        }
     }
 
     public void displayTributes() {
         System.out.println(name + "'s tributes.");
-        for(String tribute : tributes) {
+        for(Tribute tribute : tributes) {
             System.out.println("- " + tribute);
         }
     }

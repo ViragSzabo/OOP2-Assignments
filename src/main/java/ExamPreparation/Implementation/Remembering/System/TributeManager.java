@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TributeManager {
+    private List<Tribute> tributes;
     private List<Celebrity> celebrityList;
 
     public TributeManager() {
-        celebrityList = new ArrayList<Celebrity>();
+        this.celebrityList = new ArrayList<Celebrity>();
+        this.tributes = new ArrayList<>();
     }
 
     public List<Celebrity> getCelebrityList() {
@@ -27,4 +29,10 @@ public class TributeManager {
     public void removeCelebrity(Celebrity celebrity) {
         celebrityList.remove(celebrity);
     }
+
+    public List<Tribute> getTributes() { return tributes; }
+
+    public void setTributes(List<Tribute> tributes) { this.tributes = tributes; }
+
+    public void addTribute(Tribute tribute) { tributes.add(tribute); }
 }

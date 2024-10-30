@@ -1,6 +1,7 @@
-package ExamPreparation.Implementation.Remembering.System;
+package ExamPreparation.Implementation.Remembering;
 
 import ExamPreparation.Implementation.Remembering.People.Celebrity;
+import ExamPreparation.Implementation.Remembering.System.TributeManager;
 import ExamPreparation.Implementation.Remembering.Works.Work;
 import ExamPreparation.Implementation.Remembering.Works.WorkType;
 

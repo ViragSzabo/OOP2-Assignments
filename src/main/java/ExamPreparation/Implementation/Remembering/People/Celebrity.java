@@ -1,5 +1,7 @@
 package ExamPreparation.Implementation.Remembering.People;
 
+import ExamPreparation.Implementation.Remembering.Journal.MemoryEntry;
+import ExamPreparation.Implementation.Remembering.Journal.MemoryJournal;
 import ExamPreparation.Implementation.Remembering.Works.Work;
 
 import java.util.*;
@@ -8,13 +10,14 @@ public class Celebrity {
     private String name;
     private String profession;
     private List<String> tributes;
-    private Map<Integer, List<Work>> workTimeline;
+    private Map<Integer, List<Work>> workTimeline;private MemoryJournal journal;
 
     public Celebrity(String name, String profession) {
         this.name = name;
         this.profession = profession;
         this.tributes = new ArrayList<>();
         this.workTimeline = new TreeMap<>();
+        this.journal = new MemoryJournal();
     }
 
     public String getName() {
@@ -58,9 +61,13 @@ public class Celebrity {
         this.workTimeline.get(year).add(work);
     }
 
-    public void removeWorkTimeline(Map<Integer, List<Work>> workTimeline) {
-        this.workTimeline.remove(workTimeline);
-    }
+    public void removeWorkTimeline(Map<Integer, List<Work>> workTimeline) { this.workTimeline.remove(workTimeline); }
+
+    public MemoryJournal getJournal() { return journal; }
+
+    public void setJournal(MemoryJournal journal) { this.journal = journal; }
+
+    public void addJournal(String memory) { this.journal.addMemoryEntry(new MemoryEntry(memory)); }
 
     public void displayTributes() {
         System.out.println("Tributes for " + name + ":");
@@ -87,5 +94,10 @@ public class Celebrity {
                 .flatMap(List::stream)
                 .sorted(Comparator.comparing(Work::calculateAverageRating).reversed())
                 .forEach(work -> System.out.printf("%s (%s) - Rating: %.1f%n", work.getTitle(), work.getType(), work.calculateAverageRating()));
+    }
+
+    public void displayJournal() {
+        System.out.println("Memories for " + this.name);
+        this.journal.displayJournal();
     }
 }
