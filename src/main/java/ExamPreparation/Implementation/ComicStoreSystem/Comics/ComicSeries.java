@@ -1,5 +1,6 @@
 package ExamPreparation.Implementation.ComicStoreSystem.Comics;
 
+import ExamPreparation.Implementation.ComicStoreSystem.Enums.Genre;
 import ExamPreparation.Implementation.ComicStoreSystem.Enums.Status;
 
 import java.time.LocalDate;
@@ -8,11 +9,11 @@ import java.util.List;
 
 public class ComicSeries {
     private String title;
-    private String genre;
+    private Genre genre;
     private List<ComicVolume> volumes;
     private Status status;
 
-    public ComicSeries(String title, String genre) {
+    public ComicSeries(String title, Genre genre) {
         this.title = title;
         this.genre = genre;
         this.volumes = new ArrayList<>();
@@ -27,11 +28,11 @@ public class ComicSeries {
         this.title = title;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 

@@ -1,5 +1,6 @@
 package ExamPreparation.Implementation.ComicStoreSystem.Shop;
 
+import ExamPreparation.Implementation.ComicStoreSystem.Enums.Genre;
 import ExamPreparation.Implementation.ComicStoreSystem.People.Author;
 import ExamPreparation.Implementation.ComicStoreSystem.Comics.ComicSeries;
 import ExamPreparation.Implementation.ComicStoreSystem.Comics.ComicVolume;
@@ -35,7 +36,7 @@ public class Publisher {
         ComicSeries series = author.getComics().stream()
                 .filter(s -> s.getTitle().equals(volume.getTitle()))
                 .findFirst()
-                .orElse(new ComicSeries(volume.getTitle(), "Unknown"));
+                .orElse(new ComicSeries(volume.getTitle(), Genre.ADULT));
         series.addVolume(volume);
         author.addComic(series);
     }
