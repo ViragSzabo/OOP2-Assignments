@@ -2,8 +2,10 @@ package ExamPreparation.Implementation.ArtGallery;
 
 import ExamPreparation.Implementation.ArtGallery.Enums.Medium;
 import ExamPreparation.Implementation.ArtGallery.Enums.Status;
+import ExamPreparation.Implementation.ArtGallery.Operations.ArtworkOperations;
+import ExamPreparation.Implementation.ArtGallery.People.Artist;
 
-public class Artwork {
+public class Artwork implements ArtworkOperations {
     private String title;
     private Medium medium;
     private double size;
@@ -18,14 +20,6 @@ public class Artwork {
         this.size = size;
         this.status = Status.AVAILABLE;
         this.price = price;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Medium getMedium() {
@@ -60,11 +54,18 @@ public class Artwork {
         this.artist = artist;
     }
 
+    @Override
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public void changeStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public String getTitle() {
+        return this.title;
     }
 }

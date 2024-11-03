@@ -1,27 +1,23 @@
-package ExamPreparation.Implementation.ArtGallery;
+package ExamPreparation.Implementation.ArtGallery.People;
 
 import ExamPreparation.Implementation.ArtGallery.Enums.Gender;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.HashMap;
 
-public class Buyer {
+public abstract class Person {
     private String firstName;
     private String lastName;
     private String email;
     private Gender gender;
     private LocalDate birthDate;
-    private final HashMap<Artwork, LocalDateTime> ownedArts;
 
-    public Buyer(String firstName, String lastName, String email, Gender gender, LocalDate birthDate) {
+    public Person(String firstName, String lastName, String email, Gender gender, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.birthDate = birthDate;
-        this.ownedArts = new HashMap<>();
     }
 
     public String getFirstName() {
@@ -32,20 +28,20 @@ public class Buyer {
         this.firstName = firstName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Gender getGender() {
@@ -68,11 +64,9 @@ public class Buyer {
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
-    public HashMap<Artwork, LocalDateTime> getOwnedArts() {
-        return ownedArts;
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
-    public void buyArt(Artwork artwork) {
-        ownedArts.put(artwork, LocalDateTime.now());
-    }
+    public abstract String getDescription();
 }

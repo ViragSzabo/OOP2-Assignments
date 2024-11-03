@@ -2,6 +2,8 @@ package ExamPreparation.Implementation.ArtGallery;
 
 import ExamPreparation.Implementation.ArtGallery.Enums.Status;
 import ExamPreparation.Implementation.ArtGallery.Exception.TooMuchArtworksToDisplayException;
+import ExamPreparation.Implementation.ArtGallery.People.Artist;
+import ExamPreparation.Implementation.ArtGallery.People.Buyer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class Exhibition {
     }
 
     public void addArt(Artwork art) throws TooMuchArtworksToDisplayException {
-        if(!(this.availableArts.size() >= 5)) {
+        if(!(this.availableArts.size() >= 10)) {
             art.setStatus(Status.EXHIBITED);
             this.availableArts.add(art);
         } else {

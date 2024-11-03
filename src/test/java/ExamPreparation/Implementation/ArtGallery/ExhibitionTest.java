@@ -4,6 +4,8 @@ import ExamPreparation.Implementation.ArtGallery.Enums.Gender;
 import ExamPreparation.Implementation.ArtGallery.Enums.Medium;
 import ExamPreparation.Implementation.ArtGallery.Enums.Status;
 import ExamPreparation.Implementation.ArtGallery.Exception.TooMuchArtworksToDisplayException;
+import ExamPreparation.Implementation.ArtGallery.People.Artist;
+import ExamPreparation.Implementation.ArtGallery.People.Buyer;
 import junit.framework.TestCase;
 
 import java.time.LocalDate;
@@ -30,18 +32,18 @@ public class ExhibitionTest extends TestCase {
         super.setUp();
         modernArtExhibition = new Exhibition();
 
-        vincent = new Artist("Vincent", "van Gogh",
-                LocalDate.of(1853, 3, 30), Gender.MAN);
-        auguste = new Artist("Auguste", "Rodin",
-                LocalDate.of(1840, 11, 12), Gender.MAN);
-        frida = new Artist("Frida", "Kahlo",
-                LocalDate.of(1907, 7, 6), Gender.WOMAN);
-        johannes = new Artist("Johannes", "Vermeer",
-                LocalDate.of(1632, 10, 31), Gender.MAN);
-        salvador = new Artist("Salvador", "Dalí",
-                LocalDate.of(1904, 5, 11), Gender.MAN);
-        claude = new Artist("Claude", "Monet",
-                LocalDate.of(1840, 11, 14), Gender.MAN);
+        vincent = new Artist("Vincent", "van Gogh","vincent.vangogh@gmail.com",
+                Gender.MAN, LocalDate.of(1853, 3, 30));
+        auguste = new Artist("Auguste", "Rodin","auguste.rodin@gmail.com",
+                Gender.MAN, LocalDate.of(1840, 11, 12));
+        frida = new Artist("Frida", "Kahlo", "frida.kahlo@gmail.com",
+                Gender.WOMAN, LocalDate.of(1907, 7, 6));
+        johannes = new Artist("Johannes", "Vermeer",  "johannes.vermeer@gmail.com",
+                Gender.MAN, LocalDate.of(1632, 10, 31));
+        salvador = new Artist("Salvador", "Dalí","salvador.dali@gmail.com",
+                Gender.MAN, LocalDate.of(1904, 5, 11));
+        claude = new Artist("Claude", "Monet","claude.monet@gmail.com",
+                Gender.MAN, LocalDate.of(1840, 11, 14));
 
         johnDoe = new Buyer("John", "Doe",
                 "john.doe@example.com", Gender.MAN,
@@ -81,11 +83,11 @@ public class ExhibitionTest extends TestCase {
             modernArtExhibition.addArt(girlWithPearl);
             modernArtExhibition.addArt(selfPortrait);
             modernArtExhibition.addArt(persistenceOfMemory);
-            //modernArtExhibition.addArt(waterLilies);
+            modernArtExhibition.addArt(waterLilies);
         } catch (TooMuchArtworksToDisplayException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(5, modernArtExhibition.getArts().size());
+        assertEquals(6, modernArtExhibition.getArts().size());
     }
 
     public void testSell() {
