@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Exhibition {
     private List<Artwork> availableArts;
-    private HashMap<Artwork, Buyer> soldArts;
+    private final HashMap<Artwork, Buyer> soldArts;
     private List<Artist> artists;
 
     public Exhibition() {

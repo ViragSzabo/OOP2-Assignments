@@ -6,12 +6,12 @@ import ExamPreparation.Implementation.ArtGallery.Operations.ArtworkOperations;
 import ExamPreparation.Implementation.ArtGallery.People.Artist;
 
 public class Artwork implements ArtworkOperations {
-    private String title;
+    private final String title;
     private Medium medium;
     private double size;
     private Artist artist;
     private Status status;
-    private double price;
+    private final double price;
 
     public Artwork(String title, Medium medium, Artist artist, double size, double price) {
         this.title = title;
